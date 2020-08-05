@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "mobibank"
+    }
+  },
+  "defaultProject": "mobibank",
+  "cli": {
+    "defaultCollection": "@datorama/akita"
+  }
 }

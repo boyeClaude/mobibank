@@ -1,0 +1,135 @@
+<div class="container">
+  <div class="col-lg-8 mx-auto my-5">
+    <div class="card">
+      <div class="card-header">
+        Add an Employee
+      </div>
+      <!-- <p>form status: {{ employeeForm.status }}</p>
+      <p>form value : {{ employeeForm.value | json }}</p> -->
+      <div class="card-body">
+        <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+          <div class="form-group row">
+            <label for="nom" class="col-sm-2 col-form-label">Nom</label>
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control"
+                id="nom"
+                formControlName="nom"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="prenoms" class="col-sm-2 col-form-label">Prenoms</label>
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control"
+                id="prenoms"
+                formControlName="prenoms"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label"
+              >Email</label
+            >
+            <div class="col-sm-10">
+              <input
+                type="email"
+                class="form-control"
+                id="inputEmail3"
+                placeholder="test@gmail.com"
+                formControlName="email"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="Salaire" class="col-sm-2 col-form-label">Salaire</label>
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control"
+                id="salaire"
+                placeholder="100.000"
+                formControlName="salaire"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="residence" class="col-sm-2 col-form-label"
+              >Lieu de residence</label
+            >
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control"
+                id="residence"
+                placeholder="Abobo"
+                formControlName="lieuDeResidence"
+              />
+            </div>
+          </div>
+          <!-- contact field-->
+          <div formArrayName="contacts">
+            <div
+              class="form-group row mb-2"
+              *ngFor="let contact of contacts.controls; let i = index"
+            >
+              <label class="col-md-2 col-form-label" [attr.for]="i"
+                >Contact</label
+              >
+
+              <div class="col-md-8">
+                <input
+                  class="form-control"
+                  [id]="i"
+                  type="text"
+                  [formControlName]="i"
+                />
+              </div>
+              <button
+                class="col-md-2 btn btn-outline-warning btn-sm"
+                type="button"
+                (click)="deleteContact(i)"
+              >
+                Delete contact
+              </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2 mb-2">
+              <button
+                class="btn btn-outline-secondary btn-sm"
+                type="button"
+                (click)="addContact()"
+              >
+                contact +
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group row mt-4">
+            <div class="col-sm-10">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="!employeeForm.valid"
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary mx-2"
+                (click)="this.clearForm()"
+              >
+                Reset
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

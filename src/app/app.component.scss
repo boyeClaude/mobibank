@@ -1,0 +1,36 @@
+header {
+  background: #fff;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #000;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.list-items {
+  display: flex;
+}
+
+.item {
+  padding: 0 1em;
+  text-decoration: none;
+  color: #000;
+}
+
+.item:hover {
+  color: #333;
+}

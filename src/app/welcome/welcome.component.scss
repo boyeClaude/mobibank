@@ -1,35 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
-
-@import "~bootstrap/dist/css/bootstrap.min.css";
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+.containerr {
+  margin: 0 auto;
+  width: 80%;
+  max-width: 1200px;
 }
 
-* {
-  margin: 0;
-}
-body {
-  margin: 0;
-  font-family: "Roboto", sans-serif;
-  //   height: 100vh;
-  background: rgb(216, 215, 215);
-}
-
-/*welcome css*/
 .hero {
   background: rgb(216, 215, 215);
   padding: 1em;
 }
-// .hero-background {
-//   background-image: url("../assets/img/bg-intro-desktop.svg");
-//   height: 100vh;
-//   background-position: center;
-//   background-repeat: no-repeat;
-//   background-size: cover;
-// }
 
 .hero-flex {
   display: flex;
@@ -52,7 +30,7 @@ body {
 
   .button {
     border: none;
-    padding: 0.5em 1.2em;
+    padding: 1em 2em;
     border-radius: 20px;
     font-size: 1.2rem;
     background-image: linear-gradient(
