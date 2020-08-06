@@ -1,10 +1,14 @@
 import { EmployeeStore } from './employees.store';
 import { IEmployee } from './employee.model';
 import { Injectable } from '@angular/core';
+import { EmployeesQuery } from './employees.query';
 
 @Injectable({ providedIn: 'root' })
 export class EmployeeService {
-  constructor(private employeeStore: EmployeeStore) {}
+  constructor(
+    private employeeStore: EmployeeStore,
+    private employeeQuery: EmployeesQuery
+  ) {}
 
   private createEmployee({
     id,
@@ -26,6 +30,10 @@ export class EmployeeService {
     };
   }
 
+  displayEmployee() {
+    return this.employeeQuery.selectAll();
+  }
+
   addEmployee(employee: Partial<IEmployee>) {
     const myEmployeeCreate = this.createEmployee(employee);
     this.employeeStore.add(myEmployeeCreate);
@@ -34,7 +42,4 @@ export class EmployeeService {
   deleteEmployee(id: string) {
     this.employeeStore.remove(id);
   }
-  //   private createEmployee(myEmployee: Partial<IEmployee>) {
-  //     return myEmployee;
-  //   }
 }

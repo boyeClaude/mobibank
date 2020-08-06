@@ -16,7 +16,11 @@
               <th scope="col">Salaire</th>
               <th scope="col">Lieu de residence</th>
               <th scope="col">Contact</th>
+              <th scope="col">Operations</th>
             </tr>
+            {{
+              displayListEmployee()
+            }}
           </thead>
           <tbody>
             <tr>
@@ -27,8 +31,12 @@
               <td>10.000</td>
               <td>Abobo</td>
               <td>07085698|01023658|45896321</td>
-              <td><a class="btn btn-secondary">Edit</a></td>
-              <td><a class="btn btn-warning">Delete</a></td>
+              <td>
+                <button class="btn btn-secondary">Edit</button>
+              </td>
+              <td>
+                <button class="btn btn-warning">Delete</button>
+              </td>
             </tr>
             <tr>
               <th scope="row">2</th>
@@ -38,8 +46,8 @@
               <td>10.000</td>
               <td>Abobo</td>
               <td>07085698|07085698|01023658</td>
-              <td><a class="btn btn-secondary">Edit</a></td>
-              <td><a class="btn btn-warning">Delete</a></td>
+              <td><button class="btn btn-secondary">Edit</button></td>
+              <td><button class="btn btn-warning">Delete</button></td>
             </tr>
           </tbody>
         </table>

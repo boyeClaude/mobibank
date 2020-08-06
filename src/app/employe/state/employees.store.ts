@@ -8,7 +8,7 @@ export interface EmployeeState extends EntityState<IEmployee> {}
   providedIn: 'root',
 })
 @StoreConfig({ name: 'employees' })
-export class EmployeeStore extends EntityStore<EmployeeState, IEmployee> {
+export class EmployeeStore extends EntityStore<EmployeeState> {
   constructor() {
     super();
   }
