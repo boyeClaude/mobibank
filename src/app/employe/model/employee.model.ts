@@ -1,11 +1,11 @@
 import { ID } from '@datorama/akita';
 
 export interface IEmployee {
-  id: ID;
+  id: number;
   nom: string;
   prenoms: string;
   email: string;
   salaire: number;
   lieuDeResidence: string;
-  contact: number[];
+  contacts?: number[];
 }

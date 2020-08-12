@@ -1,8 +1,12 @@
-import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
-import { IEmployee } from './employee.model';
+import { EntityState, EntityStore, StoreConfig, ID } from '@datorama/akita';
+import { IEmployee } from '../model/employee.model';
 import { Injectable } from '@angular/core';
 
-export interface EmployeeState extends EntityState<IEmployee> {}
+export interface EmployeeState extends EntityState<IEmployee, number> {}
+
+// export function createInitialState(): EmployeeState {
+//   return [];
+// }
 
 @Injectable({
   providedIn: 'root',

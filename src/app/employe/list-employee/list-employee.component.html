@@ -1,57 +1,52 @@
-<div class="container">
-  <div class="col-lg-12 mx-auto my-5">
-    <div class="card">
-      <div class="card-header">
-        List of Employee
-      </div>
-
-      <div class="card-body">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Nom</th>
-              <th scope="col">Prenoms</th>
-              <th scope="col">Email</th>
-              <th scope="col">Salaire</th>
-              <th scope="col">Lieu de residence</th>
-              <th scope="col">Contact</th>
-              <th scope="col">Operations</th>
-            </tr>
-            {{
-              displayListEmployee()
-            }}
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo@gmail.com</td>
-              <td>10.000</td>
-              <td>Abobo</td>
-              <td>07085698|01023658|45896321</td>
-              <td>
-                <button class="btn btn-secondary">Edit</button>
-              </td>
-              <td>
-                <button class="btn btn-warning">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat@gmail.com</td>
-              <td>10.000</td>
-              <td>Abobo</td>
-              <td>07085698|07085698|01023658</td>
-              <td><button class="btn btn-secondary">Edit</button></td>
-              <td><button class="btn btn-warning">Delete</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<div class="col-lg-12 mx-auto my-5">
+  <div class="card">
+    <div class="card-header">
+      List of Employee
     </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <!-- <th scope="col">Id</th> -->
+          <th scope="col">Nom</th>
+          <th scope="col">Prenoms</th>
+          <th scope="col">Email</th>
+          <th scope="col">Salaire</th>
+          <th scope="col">Lieu de residence</th>
+          <th scope="col">Contact</th>
+          <th scope="col">Operations</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of listEmployees$ | async">
+          <!-- <th scope="row"></th> -->
+          <td>{{ employee.nom }}</td>
+          <td>{{ employee.prenoms }}</td>
+          <td>{{ employee.email }}</td>
+          <td>{{ employee.salaire }}</td>
+          <td>{{ employee.lieuDeResidence }}</td>
+          <td>
+            <ng-container *ngFor="let contact of employee.contacts">
+              {{ contact }} <br />
+            </ng-container>
+          </td>
+          <td>
+            <button
+              (click)="editEmployee(employee.id)"
+              class="btn btn-secondary"
+              style="margin: 5px;"
+            >
+              Edit
+            </button>
+            <button
+              (click)="deleteEmployee(employee.id)"
+              class="btn btn-warning"
+              style="margin: 5px;"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
