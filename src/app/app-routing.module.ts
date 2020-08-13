@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
   { path: 'list-employee', component: ListEmployeeComponent },
   { path: 'add-employee', component: AddEmployeeComponent },
-  { path: 'edit/:id', component: AddEmployeeComponent },
+  { path: 'add-employee/edit/:id', component: AddEmployeeComponent },
   { path: '**', redirectTo: 'welcome' },
 ];
 

@@ -106,10 +106,21 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   onSubmit() {
-    const result = this.employeeForm.value;
-    console.log(result);
-    this.employeeService.createEmployee(result);
-    this.clearForm();
+    if (this.employeeForm.valid) {
+      if (this.employeeForm.dirty) {
+        const result = { ...this.myEmployee, ...this.employeeForm.value };
+        if (!result.id) {
+          this.employeeService.createEmployee(result);
+        } else {
+          this.employeeService.updateEmployee(result.id, result);
+        }
+        this.onSaveComplete();
+      }
+    }
+  }
+
+  onSaveComplete() {
+    this.employeeForm.reset();
     this.router.navigateByUrl('/list-employee');
   }
 }
