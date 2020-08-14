@@ -11,23 +11,16 @@ import { EmployeeService } from '../services/employees.service';
 // import { Router } from '@angular/router';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { IEmployee } from '../model/employee.model';
+import { MyReactiveFormsComponent } from 'src/app/shared/behaviors/forms/my-reactive-forms.component';
 
 @Component({
-  selector: 'add-employee',
+  selector: 'app-add-employee',
   templateUrl: 'add-employee.component.html',
 })
 export class AddEmployeeComponent implements OnInit {
   pageTitle = 'Add Employee';
   employeeForm: FormGroup;
   myEmployee: IEmployee;
-  // employeeForm = this.fb.group({
-  //   nom: ['', Validators.required],
-  //   prenoms: ['', Validators.required],
-  //   email: ['', Validators.required],
-  //   salaire: ['', Validators.required],
-  //   lieuDeResidence: ['', Validators.required],
-  //   contacts: this.fb.array([]),
-  // });
 
   constructor(
     private fb: FormBuilder,
@@ -37,14 +30,16 @@ export class AddEmployeeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.employeeForm = this.fb.group({
-      nom: ['', Validators.required],
-      prenoms: ['', Validators.required],
-      email: ['', Validators.required],
-      salaire: ['', Validators.required],
-      lieuDeResidence: ['', Validators.required],
-      contacts: this.fb.array([]),
-    });
+    // this.employeeForm = this.fb.group({
+    //   nom: ['', Validators.required],
+    //   prenoms: ['', Validators.required],
+    //   email: ['', Validators.required],
+    //   salaire: ['', Validators.required],
+    //   lieuDeResidence: ['', Validators.required],
+    //   contacts: this.fb.array([]),
+    // });
+
+    this.employeeForm = this.employeeService.initialiserForm();
 
     //Read the employee Id from the route
     this.route.paramMap.subscribe((params) => {
@@ -106,10 +101,21 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   onSubmit() {
-    const result = this.employeeForm.value;
-    console.log(result);
-    this.employeeService.createEmployee(result);
-    this.clearForm();
+    if (this.employeeForm.valid) {
+      if (this.employeeForm.dirty) {
+        const result = { ...this.myEmployee, ...this.employeeForm.value };
+        if (!result.id) {
+          this.employeeService.createEmployee(result);
+        } else {
+          this.employeeService.updateEmployee(result.id, result);
+        }
+        this.onSaveComplete();
+      }
+    }
+  }
+
+  onSaveComplete() {
+    this.employeeForm.reset();
     this.router.navigateByUrl('/list-employee');
   }
 }

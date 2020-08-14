@@ -7,7 +7,7 @@ import { ID } from '@datorama/akita';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'list-employee',
+  selector: 'app-list-employee',
   templateUrl: 'list-employee.component.html',
 })
 export class ListEmployeeComponent implements OnInit {
