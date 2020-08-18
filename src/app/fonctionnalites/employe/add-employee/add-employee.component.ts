@@ -12,50 +12,45 @@ import { EmployeeService } from '../services/employees.service';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { IEmployee } from '../model/employee.model';
 import { MyReactiveFormsComponent } from 'src/app/shared/behaviors/forms/my-reactive-forms.component';
+import { Autowired } from '@angular-ru/autowired';
 
 @Component({
   selector: 'app-add-employee',
   templateUrl: 'add-employee.component.html',
 })
-export class AddEmployeeComponent implements OnInit {
+export class AddEmployeeComponent extends MyReactiveFormsComponent<IEmployee>
+  implements OnInit {
+  // @Autowired() fb: FormBuilder;
+  // @Autowired() dataCreation: EmployeeService;
+  // @Autowired() getDataById: EmployeeService;
+  // @Autowired() initialisationForm: EmployeeService;
+  // @Autowired() router: Router;
+  // @Autowired() route: ActivatedRoute;
+
   pageTitle = 'Add Employee';
-  employeeForm: FormGroup;
   myEmployee: IEmployee;
 
   constructor(
     private fb: FormBuilder,
-    private employeeService: EmployeeService,
     private router: Router,
-    private route: ActivatedRoute
-  ) {}
-
-  ngOnInit() {
-    // this.employeeForm = this.fb.group({
-    //   nom: ['', Validators.required],
-    //   prenoms: ['', Validators.required],
-    //   email: ['', Validators.required],
-    //   salaire: ['', Validators.required],
-    //   lieuDeResidence: ['', Validators.required],
-    //   contacts: this.fb.array([]),
-    // });
-
-    this.employeeForm = this.employeeService.initialiserForm();
-
-    //Read the employee Id from the route
-    this.route.paramMap.subscribe((params) => {
-      const empId = +params.get('id');
-      if (empId) {
-        this.getMyEmployee(empId);
-      }
-    });
+    protected dataCreation: EmployeeService,
+    getDataById: EmployeeService,
+    protected initialisationForm: EmployeeService,
+    protected route: ActivatedRoute
+  ) {
+    super(fb, router, route);
   }
 
   clearForm() {
-    this.employeeForm.reset();
+    this.formGroup.reset();
   }
 
   get contacts() {
-    return this.employeeForm.get('contacts') as FormArray;
+    try {
+      return this.formGroup.get('contacts') as FormArray;
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   addContact() {
@@ -67,55 +62,42 @@ export class AddEmployeeComponent implements OnInit {
     this.contacts.markAsDirty();
   }
 
-  getMyEmployee(id: number) {
-    let myEmpId = this.employeeService.getEmployeeById(id);
-    this.editMyEmployee(myEmpId);
-  }
+  // getMyEmployee(id: number) {
+  //   let myEmpId = this.employeeService.getEmployeeById(id);
+  //   this.editMyEmployee(myEmpId);
+  // }
 
-  editMyEmployee(employee: IEmployee) {
-    if (this.employeeForm) {
-      this.employeeForm.reset();
-    }
+  // editMyEmployee(employee: IEmployee) {
+  //   if (this.formGroup) {
+  //     this.formGroup.reset();
+  //   }
 
-    this.myEmployee = employee;
+  //   this.myEmployee = employee;
 
-    if (this.myEmployee.id === 0) {
-      this.pageTitle = 'Add Employee';
-    } else {
-      this.pageTitle = `Edit Product: ${this.myEmployee.nom}`;
-    }
+  //   if (this.myEmployee.id === 0) {
+  //     this.pageTitle = 'Add Employee';
+  //   } else {
+  //     this.pageTitle = `Edit Product: ${this.myEmployee.nom}`;
+  //   }
 
-    // update data on the form
-    this.employeeForm.patchValue({
-      nom: employee.nom,
-      prenoms: employee.prenoms,
-      email: employee.email,
-      salaire: employee.salaire,
-      lieuDeResidence: employee.lieuDeResidence,
-    });
+  //   // update data on the form
+  //   this.formGroup.patchValue({
+  //     nom: employee.nom,
+  //     prenoms: employee.prenoms,
+  //     email: employee.email,
+  //     salaire: employee.salaire,
+  //     lieuDeResidence: employee.lieuDeResidence,
+  //   });
 
-    this.employeeForm.setControl(
-      'contacts',
-      this.fb.array(this.myEmployee.contacts || [])
-    );
-  }
-
-  onSubmit() {
-    if (this.employeeForm.valid) {
-      if (this.employeeForm.dirty) {
-        const result = { ...this.myEmployee, ...this.employeeForm.value };
-        if (!result.id) {
-          this.employeeService.createEmployee(result);
-        } else {
-          this.employeeService.updateEmployee(result.id, result);
-        }
-        this.onSaveComplete();
-      }
-    }
-  }
+  //   this.formGroup.setControl(
+  //     'contacts',
+  //     this.fb.array(this.myEmployee.contacts || [])
+  //   );
+  // }
 
   onSaveComplete() {
-    this.employeeForm.reset();
+    // this.formGroup.reset();
+    super.onSaveComplete();
     this.router.navigateByUrl('/list-employee');
   }
 }

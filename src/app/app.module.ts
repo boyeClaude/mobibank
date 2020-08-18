@@ -11,6 +11,7 @@ import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 import { environment } from '../environments/environment';
+// import { BeanAccessibleModule } from '@angular-ru/autowired';
 
 @NgModule({
   declarations: [AppComponent, WelcomeComponent],
@@ -21,6 +22,7 @@ import { environment } from '../environments/environment';
     ListEmployeeModule,
     environment.production ? [] : AkitaNgDevtools.forRoot(),
     AkitaNgRouterStoreModule,
+    // BeanAccessibleModule.forRoot(),
   ],
   providers: [
     {

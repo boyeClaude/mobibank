@@ -1,3 +1,3 @@
 export interface IDeleteData {
-  deleteData();
+  dataToBeDeleted(id);
 }
